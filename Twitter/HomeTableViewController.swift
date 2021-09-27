@@ -21,18 +21,22 @@ class HomeTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadTweets()
-        
+        numberOfTweets = 20
         myRefreshControl.addTarget(self, action: #selector((loadTweets)), for: .valueChanged)
-        tableView.refreshControl = myRefreshControl
+        self.tableView.refreshControl = myRefreshControl
         // Uncomment the following line to preserve selection between presentations
 //         self.clearsSelectionOnViewWillAppear = true
-        
+
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweets()
+        print("reloading the tweets agian from viewDidappear")
+    }
+    
     @objc func loadTweets () {
-        numberOfTweets = 20
         let url = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count" : numberOfTweets]
         TwitterAPICaller.client?.getDictionariesRequest(url: url, parameters: myParams as [String : Any],
@@ -92,7 +96,7 @@ class HomeTableViewController: UITableViewController {
             loadMoreTweets()
         }
     }
-    // MARK: - Table view data source
+//     MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
