@@ -22,7 +22,7 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/samo7a/New-Twitter/blob/main/walkthrough2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 # Project 3 - *New Twitter*
 
 **New Twitter** is a basic twitter app to read your tweets.
