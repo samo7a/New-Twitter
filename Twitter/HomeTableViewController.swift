@@ -11,7 +11,7 @@ import UIKit
 class HomeTableViewController: UITableViewController {
 
     var TweetArray = [NSDictionary]()
-    var numberOfTweets: Int!
+    var numberOfTweets: Int = 0
     let myRefreshControl = UIRefreshControl()
     
     @IBAction func onLogoutButton(_ sender: Any) {
@@ -21,7 +21,6 @@ class HomeTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        numberOfTweets = 20
         myRefreshControl.addTarget(self, action: #selector((loadTweets)), for: .valueChanged)
         self.tableView.refreshControl = myRefreshControl
         // Uncomment the following line to preserve selection between presentations
@@ -37,6 +36,7 @@ class HomeTableViewController: UITableViewController {
     }
     
     @objc func loadTweets () {
+        numberOfTweets = 20
         let url = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count" : numberOfTweets]
         TwitterAPICaller.client?.getDictionariesRequest(url: url, parameters: myParams as [String : Any],
@@ -87,7 +87,11 @@ class HomeTableViewController: UITableViewController {
         if let imageData = data {
             cell.profilePic.image = UIImage(data: imageData)
         }
+		cell.setFavorite(TweetArray[indexPath.row]["favorited"] as! Bool)
+		cell.tweetId = TweetArray[indexPath.row]["id"] as! Int
+		cell.setRetweet(TweetArray[indexPath.row]["retweeted"] as! Bool)
 //        self.tableView.deselectRow(at: indexPath, animated: true)
+		
         return cell
     }
     
